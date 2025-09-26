@@ -32,16 +32,16 @@ class PROJECTConan(ConanFile):
     name, version, description = get_project_name_version_and_description()
 
     license = "BSD"
-    author = "Jaap Versteegh <j.r.versteegh@gmail.com>"
-    url = "https://github.com/jrversteegh/PROJECT"
+    author = "AUTHOR <EMAIL>"
+    url = "https://example.com"
 
     generators = "CMakeDeps"
     settings = "os", "compiler", "build_type", "arch"
     exports_sources = (
         "pyproject.toml",
         "CMakeLists.txt",
-        "src/*",
-        "include/*",
+        "src/PROJECT/*",
+        "include/PROJECT/*",
         "conanfile.txt",
     )
 
@@ -52,8 +52,8 @@ class PROJECTConan(ConanFile):
         compiler = self.settings.compiler
         version = int(str(Version(self.settings.compiler.version)))
 
-        if compiler == "gcc" and version < 15:
-            raise ConanInvalidConfiguration("GCC needs to be version 15 or up")
+        if compiler == "gcc" and version < 14:
+            raise ConanInvalidConfiguration("GCC needs to be version 14 or up")
 
     def generate(self):
         tc = CMakeToolchain(self)

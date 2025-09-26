@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "PROJECT"
 version = "0.1.0"
-description = "PROJECT DESCRIPTION"
+description = "DESCRIPTION"
 authors = ["Jaap Versteegh <j.r.versteegh@gmail.com>"]
 license = "BSD"
 readme = "README.rst"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -48,13 +48,7 @@ def test(ctx):
 def benchmark(ctx):
     """Run tests"""
     for cmd in ("build/benchmarks/test_PROJECT",):
-        num_threads = 1
-        ctx.run(
-            cmd,
-            echo=True,
-            env={
-            },
-        )
+        ctx.run( cmd, echo=True, env={ })
 
 
 @task
@@ -73,6 +67,23 @@ def build(ctx):
     ):
         ctx.run(cmd, echo=True)
 
+
+@task
+def build_docs(ctx):
+    """Build docs"""
+    doc_dir = script_dir / "docs"
+    build_dir = script_dir / "build" / "docs"
+    build_dir.mkdir(parents=True, exists_ok=True)
+    with ctx.cd(build_dir):
+        for cmd in (
+            f"cmake -DVERSION={version} {doc_dir}",
+            "cmake --build build",
+            f"sphinx-apidoc -P -f -o {doc_dir / '_source'} {script_dir}/src/PROJECT",
+            f"sphinx-build -Dversion={version} -Drelease={version} "
+                f"-Aversion={version} -Aversions={','.join(versions)} -b html {doc_dir} .",
+        ):
+            with ctx.cd(d):
+                ctx.run(cmd, echo=True)
 
 @task
 def clean(ctx):
