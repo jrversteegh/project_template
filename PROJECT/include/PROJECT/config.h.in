@@ -1,0 +1,38 @@
+/**
+ * \file
+ * \brief Provide program compilation configuration
+ *
+ * \author J.R. Versteegh <j.r.versteegh@gmail.com>
+ *
+ * Build configuration
+ */
+
+/*
+ * Conditional includes and definitions of optional packages here
+ */
+
+#ifndef PROJECT_CONFIG_H__
+#define PROJECT_CONFIG_H__
+
+#cmakedefine NUMBER_TYPE @NUMBER_TYPE@
+#cmakedefine FORMAT_STRING @FORMAT_STRING@
+
+namespace PROJECT {
+
+#ifdef NUMBER_TYPE
+  using Number = NUMBER_TYPE;
+#else
+  using Number = double;
+#endif
+
+#ifdef FORMAT_STRING
+#define FMT FORMAT_STRING
+#else
+#define FMT "{}"
+#endif
+
+using size_t = std::size_t;
+
+}
+
+#endif
