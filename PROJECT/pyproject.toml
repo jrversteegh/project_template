@@ -59,7 +59,7 @@ addopts = """\
 filterwarnings = "ignore::DeprecationWarning"
 
 [tool.coverage]
-run = { source = ["PROJECT"], branch = true, omit = [] }
+run = { source = ["pyPROJECT"], branch = true, omit = [] }
 html = { directory = "build/pytest_coverage" }
 xml = { output = "build/pytest_coverage.xml" }
 
