@@ -30,7 +30,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   endif()
 endif()
 
-
 if (${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows")
   set(TEST_LINK_FLAGS "")
   set(MODULE_OUTPUT_DIR ".")
@@ -39,23 +38,24 @@ else()
   set(MODULE_OUTPUT_DIR "${CMAKE_BUILD_TYPE}")
 endif()
 
+find_package(Boost 1.88.0 REQUIRED
+  log log_setup unit_test_framework regex program_options
+)
+find_package(fmt 11.2.0 REQUIRED)
+
 if(BUILD_PYTHON)
   find_package(pybind11 REQUIRED)
   execute_process(COMMAND python-config --includes OUTPUT_VARIABLE Python_INCLUDES)
 endif()
-if(BUILD_TESTS)
-  find_package(Boost 1.88.0 REQUIRED
-    log log_setup unit_test_framework regex program_options
-  )
+if(BUILD_BENCHMARKS)
   find_package(benchmark REQUIRED)
 endif()
-
-find_package(fmt 11.2.0 REQUIRED)
 
 execute_process(COMMAND git show --no-patch --format=%h OUTPUT_VARIABLE GITREV)
 execute_process(COMMAND git show --no-patch --format=%ci --date=short OUTPUT_VARIABLE GITDATE)
 set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/PROJECT")
+set(BINDING_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/pycxxPROJECT")
 set(TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/PROJECT")
 set(BENCHMARKS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/benchmarks")
 set(VERSION_H_IN ${INCLUDE_DIR}/PROJECT/version.h.in)
@@ -75,28 +75,37 @@ add_compile_definitions(
   FMT_HEADER_ONLY=1
 )
 
-FILE(GLOB lib_sources src/PROJECT/*.cpp)
+FILE(GLOB lib_sources ${SOURCE_DIR}/*.cpp)
+FILE(GLOB binding_sources ${BINDING_SOURCE_DIR}/*.cpp)
 
-add_library(PROJECT OBJECT ${lib_sources})
+add_library(PROJECTlib OBJECT ${lib_sources})
 message("Module output directory: ${MODULE_OUTPUT_DIR}")
-set_target_properties(PROJECT PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${MODULE_OUTPUT_DIR})
-target_link_libraries(PROJECT PRIVATE
+set_target_properties(PROJECTlib PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${MODULE_OUTPUT_DIR})
+target_link_libraries(PROJECTlib PRIVATE
   fmt::fmt
 )
 if(BUILD_SHARED)
-  set_property(TARGET PROJECT PROPERTY POSITION_INDEPENDENT_CODE ON)
-  add_library(PROJECT_shared SHARED $<TARGET_OBJECTS:PROJECT>)
+  set_property(TARGET PROJECTlib PROPERTY POSITION_INDEPENDENT_CODE ON)
+  add_library(PROJECT_shared SHARED $<TARGET_OBJECTS:PROJECTlib>)
   set_target_properties(PROJECT_shared PROPERTIES OUTPUT_NAME PROJECT)
 endif()
-add_library(PROJECT_static STATIC $<TARGET_OBJECTS:PROJECT>)
+add_library(PROJECT_static STATIC $<TARGET_OBJECTS:PROJECTlib>)
 set_target_properties(PROJECT_static PROPERTIES OUTPUT_NAME PROJECT)
+
+add_executable(PROJECT ${lib_sources} src/PROJECT/app/main.cpp)
+target_link_libraries(PROJECT PRIVATE
+  fmt::fmt
+  Boost::program_options
+  Boost::log
+)
+
 if(BUILD_PYTHON)
-  pybind11_add_module(pycxxPROJECT MODULE ${BINDING_SOURCE_DIR}/binding.cpp ${lib_sources})
+  pybind11_add_module(pycxxPROJECT MODULE ${binding_sources})
   target_link_libraries(pycxxPROJECT PRIVATE
     fmt::fmt
+    PROJECT_static
   )
 endif()
-
 
 enable_testing()
 

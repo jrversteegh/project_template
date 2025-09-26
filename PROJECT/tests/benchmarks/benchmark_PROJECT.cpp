@@ -6,7 +6,9 @@
 
 #include "PROJECT/config.h"
 
-auto rand() {
+using namespace PROJECT;
+
+auto get_random() {
   static std::random_device rd;
   static std::mt19937 gen(rd());
   std::uniform_real_distribution<Number> dis(0.0, 1.0);
@@ -15,7 +17,7 @@ auto rand() {
 
 static void benchmark_PROJECT(benchmark::State& state) {
   for (auto _ : state) {
-    auto value = rand();
+    auto value = get_random();
     benchmark::DoNotOptimize(value);
   }
 }

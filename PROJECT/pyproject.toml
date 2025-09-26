@@ -2,29 +2,38 @@
 name = "PROJECT"
 version = "0.1.0"
 description = "DESCRIPTION"
-authors = ["Jaap Versteegh <j.r.versteegh@gmail.com>"]
-license = "BSD"
+authors = ["AUTHOR <EMAIL>"]
 readme = "README.rst"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: C++",
+]
+packages = [
+  { include = "pyPROJECT", from = "src" },
+]
+include = [
+  { path = "src/PROJECT/*.cpp", format = "sdist" },
+  { path = "src/pycxxPROJECT/*.cpp", format = "sdist" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
 
-
 [tool.poetry.group.dev.dependencies]
 invoke = "^2.2.0"
-cmake = "^4.0.2"
+cmake = "^4.1.0"
 sphinx = "^8.2.3"
 sphinx-rtd-theme = "^3.0.2"
-conan = "^2.17.0"
+conan = "^2.20.1"
 breathe = "^4.36.0"
-gitpython = "^3.1.44"
+gitpython = "^3.1.45"
 isort = "^6.0.1"
-black = "^25.1.0"
-ipython = "^9.3.0"
-pytest = "^8.4.0"
+black = "^25.9.0"
+ipython = "^9.5.0"
+pytest = "^8.4.2"
 gcovr = "^8.3"
-pytest-cov = "^6.1.1"
-clang-format = "^20.1.5"
+pytest-cov = "^7.0.0"
+clang-format = "^21.1.2"
 tomli = "^2.2.1"
 setuptools = "^80.9.0"
 
@@ -61,6 +70,6 @@ generate-setup-file = true
 
 
 [build-system]
-requires = ["poetry-core", "setuptools", "wheel", "cmake", "tomli", "gitpython", "conan"]
+requires = ["poetry-core", "setuptools", "wheel", "cmake", "tomli", "gitpython", "conan", "pybind11"]
 build-backend = "poetry.core.masonry.api"
 

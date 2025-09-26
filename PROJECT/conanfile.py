@@ -13,7 +13,6 @@ from conan import ConanFile
 
 
 def get_project_name_version_and_description(source_dir):
-    source_dir = Path(source_dir)
     pyproject_toml = source_dir / "pyproject.toml"
     if not pyproject_toml.exists():
         # For some reason, during install, poetry renames pyproject.toml to pyproject.tmp...
@@ -29,7 +28,7 @@ def get_project_name_version_and_description(source_dir):
 
 
 class PROJECTConan(ConanFile):
-    name, version, description = get_project_name_version_and_description()
+    name, version, description = get_project_name_version_and_description(Path(__file__).parent)
 
     license = "BSD"
     author = "AUTHOR <EMAIL>"

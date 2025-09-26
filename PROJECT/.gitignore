@@ -1,15 +1,12 @@
 /build
 /dist
 /.coverage
-/include/trix/version.h
-/include/trix/config.h
-/src/revision.txt
+/include/PROJECT/version.h
+/include/PROJECT/config.h
 /setup.py
 /CMakeSettings.json
 /CMakeUserPresets.json
-/src/trix/*.so
-/src/trixx/*.so
+/src/pyPROJECT/*.so
 
 __pycache__
 *.pyc
-

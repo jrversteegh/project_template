@@ -58,7 +58,7 @@ def create_build_dir(ctx):
         ctx.run(cmd, echo=True)
 
 
-@task(update_revision, create_build_dir)
+@task(create_build_dir)
 def build(ctx):
     """Build"""
     for cmd in (
