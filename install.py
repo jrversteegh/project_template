@@ -25,8 +25,8 @@ def rename():
     for subdir, dirs, files in os.walk(target_dir):
         for name in dirs + files:
             if "PROJECT" in name:
-                src = name
-                tgt = name.replace("PROJECT", project, 1)
+                src = os.path.join(subdir, name)
+                tgt = src.replace("PROJECT", project, 1)
                 print(f"Rename {src} to {tgt}")
                 shutil.move(src, tgt)
                 return True
