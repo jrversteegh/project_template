@@ -18,7 +18,6 @@ def format(ctx):
         "black .",
         "isort .",
         f"clang-format -i {' '.join(glob.glob('include/PROJECT/*.h'))}",
-        f"clang-format -i {' '.join(glob.glob('include/PROJECT/*.h.in'))}",
         f"clang-format -i {' '.join(glob.glob('src/PROJECT/*.cpp'))}",
         f"clang-format -i {' '.join(glob.glob('src/pycxxPROJECT/*.cpp'))}",
         f"clang-format -i {' '.join(glob.glob('tests/PROJECT/*.cpp'))}",

@@ -16,8 +16,8 @@
 
 #include <cstddef>
 
-#cmakedefine NUMBER_TYPE @NUMBER_TYPE @
-#cmakedefine FORMAT_STRING @FORMAT_STRING @
+#cmakedefine NUMBER_TYPE @NUMBER_TYPE@
+#cmakedefine FORMAT_STRING @FORMAT_STRING@
 
 namespace PROJECT {
 
