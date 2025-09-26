@@ -1,9 +1,12 @@
 /**
  * \file
- * \brief Provide version information
+ * \brief Version information
  *
- * \author J.R. Versteegh <j.r.versteegh@gmail.com>
+ * \author AUTHOR <EMAIL>
  */
+
+#define STRIFY2(X) #X
+#define STRINGIFY(X) STRIFY2(X)
 
 #define GITREV @GITREV@
 #define GITDATE @GITDATE@

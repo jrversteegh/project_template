@@ -14,6 +14,8 @@
 #ifndef PROJECT_CONFIG_H__
 #define PROJECT_CONFIG_H__
 
+#include <cstddef>
+
 #cmakedefine NUMBER_TYPE @NUMBER_TYPE@
 #cmakedefine FORMAT_STRING @FORMAT_STRING@
 
