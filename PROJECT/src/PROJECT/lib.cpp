@@ -1,2 +1,2 @@
-#include <PROJECT/version.h>
 #include <PROJECT/config.h>
+#include <PROJECT/version.h>

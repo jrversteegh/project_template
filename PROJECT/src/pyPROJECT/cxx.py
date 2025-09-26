@@ -3,6 +3,7 @@ PROJECT C++ module loader
 
 Import object from the PROJECT C++ module
 """
+
 __author__ = "AUTHOR"
 __contact__ = "EMAIL"
 
@@ -22,4 +23,4 @@ except ImportError:
         name=_module_name,
     )
 
-__version__  = pycxxPROJECT.__version__
+__version__ = pycxxPROJECT.__version__

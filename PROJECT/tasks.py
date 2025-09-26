@@ -18,6 +18,7 @@ def format(ctx):
         "black .",
         "isort .",
         f"clang-format -i {' '.join(glob.glob('include/PROJECT/*.h'))}",
+        f"clang-format -i {' '.join(glob.glob('include/PROJECT/*.h.in'))}",
         f"clang-format -i {' '.join(glob.glob('src/PROJECT/*.cpp'))}",
         f"clang-format -i {' '.join(glob.glob('src/pycxxPROJECT/*.cpp'))}",
         f"clang-format -i {' '.join(glob.glob('tests/PROJECT/*.cpp'))}",
@@ -48,7 +49,7 @@ def test(ctx):
 def benchmark(ctx):
     """Run tests"""
     for cmd in ("build/benchmarks/test_PROJECT",):
-        ctx.run( cmd, echo=True, env={ })
+        ctx.run(cmd, echo=True, env={})
 
 
 @task
@@ -80,10 +81,11 @@ def build_docs(ctx):
             "cmake --build build",
             f"sphinx-apidoc -P -f -o {doc_dir / '_source'} {script_dir}/src/PROJECT",
             f"sphinx-build -Dversion={version} -Drelease={version} "
-                f"-Aversion={version} -Aversions={','.join(versions)} -b html {doc_dir} .",
+            f"-Aversion={version} -Aversions={','.join(versions)} -b html {doc_dir} .",
         ):
             with ctx.cd(d):
                 ctx.run(cmd, echo=True)
+
 
 @task
 def clean(ctx):

@@ -28,7 +28,9 @@ def get_project_name_version_and_description(source_dir):
 
 
 class PROJECTConan(ConanFile):
-    name, version, description = get_project_name_version_and_description(Path(__file__).parent)
+    name, version, description = get_project_name_version_and_description(
+        Path(__file__).parent
+    )
 
     license = "BSD"
     author = "AUTHOR <EMAIL>"

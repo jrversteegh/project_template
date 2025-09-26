@@ -16,15 +16,15 @@
 
 #include <cstddef>
 
-#cmakedefine NUMBER_TYPE @NUMBER_TYPE@
-#cmakedefine FORMAT_STRING @FORMAT_STRING@
+#cmakedefine NUMBER_TYPE @NUMBER_TYPE @
+#cmakedefine FORMAT_STRING @FORMAT_STRING @
 
 namespace PROJECT {
 
 #ifdef NUMBER_TYPE
-  using Number = NUMBER_TYPE;
+using Number = NUMBER_TYPE;
 #else
-  using Number = double;
+using Number = double;
 #endif
 
 #ifdef FORMAT_STRING
@@ -35,6 +35,6 @@ namespace PROJECT {
 
 using size_t = std::size_t;
 
-}
+} // namespace PROJECT
 
 #endif

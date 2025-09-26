@@ -8,11 +8,11 @@
 #define STRIFY2(X) #X
 #define STRINGIFY(X) STRIFY2(X)
 
-#define GITREV @GITREV@
-#define GITDATE @GITDATE@
-#define VERSION @VERSION@
-#define BUILD_DATE @DATE@
-#define BUILD_TYPE @CMAKE_BUILD_TYPE@
+#define GITREV @GITREV @
+#define GITDATE @GITDATE @
+#define VERSION @VERSION @
+#define BUILD_DATE @DATE @
+#define BUILD_TYPE @CMAKE_BUILD_TYPE @
 
 #cmakedefine CXX_VER "@CXX_VERSION@"
 #define BOOST_VER "@Boost_VERSION_STRING@"
