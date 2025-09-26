@@ -11,7 +11,12 @@ if len(sys.argv) < 4:
 
 source_dir = Path(__file__).parent / "PROJECT"
 
-project = sys.argv[1].lower().replace(" ", "_").replace("-", "_")
+target_dir = Path(sys.argv[1].lower().replace(" ", "_").replace("-", "_").replace(".", "_"))
+if target_dir.exists():
+    print(f'"{target_dir}" exists. Not installing.')
+    exit(2)
+
+project = target_dir.name
 author = sys.argv[2]
 email = sys.argv[3]
 if len(sys.argv) > 4:
@@ -22,12 +27,7 @@ print(f'Creating project "{project}"')
 print(f' with description "{description}"')
 print(f' author is "{author}"')
 print(f' with email "{email}"')
-target_dir = Path() / project
-
-if target_dir.exists():
-    print(f'"{target_dir}" exists. Not installing.')
-    exit(2)
-
+print()
 print(f'Installing to "{target_dir}"')
 shutil.copytree(source_dir, target_dir)
 
@@ -63,3 +63,4 @@ for subdir, dirs, files in os.walk(target_dir):
             print(f"Updating {tgt}")
             with open(tgt, "w") as f:
                 f.write(newlines)
+print("Done!")
