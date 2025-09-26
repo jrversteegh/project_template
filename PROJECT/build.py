@@ -76,6 +76,7 @@ def build_module(build_type, config="", march=""):
             raise Exception("Failed to run conan")
         if os.system(
             f"{cmake} -DCMAKE_BUILD_TYPE={build_type}"
+            f" -DVERSION={version} -DDATE={date}"
             f" -DBUILD_PYTHON=1 -DBUILD_TESTS=1 -DBUILD_SHARED=1 -DBUILD_BENCHMARKS=1"
             f" -DCMAKE_CXX_COMPILER={compiler} -G Ninja"
             f" -DCMAKE_TOOLCHAIN_FILE=conan/conan_toolchain.cmake"
