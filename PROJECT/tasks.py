@@ -10,6 +10,9 @@ from invoke import task
 script_dir = Path(__file__).absolute().parent
 os.chdir(script_dir)
 
+import build
+version, date = build.get_project_version_and_date()
+
 
 @task
 def format(ctx):

@@ -24,3 +24,4 @@ except ImportError:
     )
 
 __version__ = pycxxPROJECT.__version__
+from pycxxPROJECT import *
