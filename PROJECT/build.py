@@ -112,9 +112,11 @@ class CopyCommand(Command):
         return [str(f) for f in pycxx_source_dir.glob("*.*")]
 
     def run(self):
+        libdir = os.path.join(self.build_lib, "pyPROJECT")
+        os.makedirs(libdir, exist_ok=True)
         for module_file in self.get_outputs():
             self.copy_file(module_file, py_source_dir)
-            self.copy_file(module_file, os.path.join(self.build_lib, "pyPROJECT"))
+            self.copy_file(module_file, libdir)
 
 
 def build(setup_kwargs):

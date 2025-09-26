@@ -12,27 +12,24 @@ from conan.tools.scm import Version
 from conan import ConanFile
 
 
-def get_project_name_version_and_description(source_dir):
+def get_project_version(source_dir):
     pyproject_toml = source_dir / "pyproject.toml"
     if not pyproject_toml.exists():
-        # For some reason, during install, poetry renames pyproject.toml to pyproject.tmp...
-        pyproject_toml = source_dir / "pyproject.tmp"
+        pyproject_toml = source_dir / ".." / "es" / "pyproject.toml"
+    if not pyproject_toml.exists():
+        raise RuntimeError("Failed to find pyproject.toml")
 
     # Create header with version info
     with open(pyproject_toml, "rb") as f:
         project = tomli.load(f)
-        name = project["tool"]["poetry"]["name"]
         version = project["tool"]["poetry"]["version"]
-        description = project["tool"]["poetry"]["description"]
-    return name, version, description
+    return version
 
 
 class PROJECTConan(ConanFile):
-    name, version, description = get_project_name_version_and_description(
-        Path(__file__).parent
-    )
-
-    license = "BSD"
+    name = "PROJECT"
+    version = get_project_version(Path(__file__).parent)
+    description = "DESCRIPTION"
     author = "AUTHOR <EMAIL>"
     url = "https://example.com"
 
