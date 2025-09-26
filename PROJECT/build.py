@@ -76,7 +76,7 @@ def build_module(build_type, config="", march=""):
             raise Exception("Failed to run conan")
         if os.system(
             f"{cmake} -DCMAKE_BUILD_TYPE={build_type}"
-            f" -DVERSION={version} -DDATE={date} -DBUILD_PYTHON=1 -DBUILD_TESTS=1 -DBUILD_SHARED=1 -DBUILD_BENCHMARKS=1"
+            f" -DBUILD_PYTHON=1 -DBUILD_TESTS=1 -DBUILD_SHARED=1 -DBUILD_BENCHMARKS=1"
             f" -DCMAKE_CXX_COMPILER={compiler} -G Ninja"
             f" -DCMAKE_TOOLCHAIN_FILE=conan/conan_toolchain.cmake"
             f" {march_define} {config} {win_flags} {script_dir}"
@@ -114,7 +114,7 @@ class CopyCommand(Command):
     def run(self):
         for module_file in self.get_outputs():
             self.copy_file(module_file, py_source_dir)
-            self.copy_file(module_file, self.build_lib)
+            self.copy_file(module_file, os.path.join(self.build_lib, "pyPROJECT"))
 
 
 def build(setup_kwargs):
@@ -128,8 +128,9 @@ def build(setup_kwargs):
     build_module(build_type, march=os.environ["MARCH"] if "MARCH" in os.environ else "")
     ext_modules = [
         Extension(
-            name="pycxxPROJECT",
+            name="pyPROJECT.pycxxPROJECT",
             sources=[],
+            extra_objects=list(output_dir.glob(f"{module_name}.cpython*.*")),
         ),
     ]
     setup_kwargs.update(
