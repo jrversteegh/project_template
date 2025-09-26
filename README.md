@@ -28,3 +28,9 @@ This template contains boiler plate for the following:
   * Creating Sphinx documentation that combines python doc strings and C++ doxygen documentation
   * Building installers for Windows `(*.msi)` and Linux `(*.deb)`
  
+Getting started
+-
+After the project has been created, the first step is to create a python virtual environment
+and install the projects requirements. This can be done with `poetry install`. After that
+a shell can be created in the new environment with `poetry shell`. Now you can run tasks from 
+`tasks.py` using invoke. Run `inv -l` to show a list of available tasks.
