@@ -15,7 +15,7 @@ _module_name = ".pycxxPROJECT"
 
 try:
     _log.info(f"Importing {_module_name}")
-    pycxxPROJECT = importlib.import_module(_module_name, package="pyPROJECT")
+    pycxx = importlib.import_module(_module_name, package="pyPROJECT")
 except ImportError:
     _log.error(f"Failed to import {_module_name}")
     raise ImportError(
@@ -23,5 +23,11 @@ except ImportError:
         name=_module_name,
     )
 
-__version__ = pycxxPROJECT.__version__
-from pycxxPROJECT import *
+__version__ = pycxx.__version__
+globals().update(
+    {
+        symbol: getattr(pycxx, symbol)
+        for symbol in dir(pycxx)
+        if not symbol.startswith("_")
+    }
+)
