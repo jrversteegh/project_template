@@ -8,6 +8,8 @@
 /CMakeUserPresets.json
 /src/pyPROJECT/*.so
 /conan/PROJECT.profile
+/tests/output/*
+/tests/logs/*
 
 __pycache__
 *.pyc
