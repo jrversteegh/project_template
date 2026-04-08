@@ -1,16 +1,20 @@
 import logging
 import os
+from datetime import datetime
 from pathlib import Path
 
 import pytest
 
 _script_dir = Path(os.path.dirname(os.path.realpath(__file__)))
-_output_dir = _script_dir / "output"
-_data_dir = _script_dir / "data"
-_log_dir = _script_dir / "logs"
+_test_dir = _script_dir.parent
+_output_dir = _test_dir / "output"
+_data_dir = _test_dir / "data"
+_log_dir = _test_dir / "logs"
+
+os.makedirs(_output_dir, exist_ok=True)
+os.makedirs(_log_dir, exist_ok=True)
 
 os.chdir(_script_dir)
-
 
 def pytest_configure(config):
     if "PYTEST_XDIST_WORKER" in os.environ:
@@ -21,7 +25,7 @@ def pytest_configure(config):
         log_link = _log_dir / "test.log"
         if log_link.exists():
             os.remove(log_link)
-            os.symlink(_logname, log_link)
+        os.symlink(_logname, log_link)
 
     logging.basicConfig(
         filename=str(_logname),
