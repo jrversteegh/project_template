@@ -75,7 +75,7 @@ def build_module(build_type, config="", march=""):
         if os.system(
             f"{cmake} -DCMAKE_BUILD_TYPE={build_type}"
             f" -DCMAKE_CXX_COMPILER={compiler}"
-             " -DCMAKE_POLICY_DEFAULT_CMP0167=NEW"
+            " -DCMAKE_POLICY_DEFAULT_CMP0167=NEW"
             f" -DARCH={architecture}"
             f" {conan_dir}"
         ):

@@ -1,6 +1,6 @@
+import logging
 import os
 from pathlib import Path
-import logging
 
 import pytest
 
@@ -10,6 +10,7 @@ _data_dir = _script_dir / "data"
 _log_dir = _script_dir / "logs"
 
 os.chdir(_script_dir)
+
 
 def pytest_configure(config):
     if "PYTEST_XDIST_WORKER" in os.environ:
@@ -28,6 +29,7 @@ def pytest_configure(config):
         filemode="w",
         format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
     )
+
 
 @pytest.fixture
 def data_dir():

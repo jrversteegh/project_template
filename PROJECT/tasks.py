@@ -18,14 +18,24 @@ version, date = build.get_project_version_and_date()
 @task
 def format(ctx):
     """Run black and isort"""
+    cpp_files = " ".join(
+        [
+            " ".join(glob.glob(d))
+            for d in [
+                "include/PROJECT/*.h",
+                "src/cxx/*.cpp",
+                "src/cxx/app/*.cpp",
+                "src/cxxPROJECT/*.cpp",
+                "tests/cxx/*.cpp",
+                "tests/benchmarks/*.cpp",
+            ]
+        ]
+    )
+
     for cmd in (
         "black .",
         "isort .",
-        f"clang-format -i {' '.join(glob.glob('include/PROJECT/*.h'))}",
-        f"clang-format -i {' '.join(glob.glob('src/cxx/*.cpp'))}",
-        f"clang-format -i {' '.join(glob.glob('src/cxxPROJECT/*.cpp'))}",
-        f"clang-format -i {' '.join(glob.glob('tests/cxx/*.cpp'))}",
-        f"clang-format -i {' '.join(glob.glob('tests/benchmarks/*.cpp'))}",
+        f"clang-format -i {cpp_files}",
         "pandoc -s -o README.md README.rst",
     ):
         ctx.run(cmd, echo=True)
@@ -81,7 +91,7 @@ def build_docs(ctx):
     with ctx.cd(build_dir):
         for cmd in (
             f"cmake -DVERSION={version} {doc_dir}",
-             "cmake --build build",
+            "cmake --build build",
             f"sphinx-apidoc -P -f -o {doc_dir / '_source'} {script_dir}/src/cxx",
             f"sphinx-build -Dversion={version} -Drelease={version} "
             f"-Aversion={version} -Aversions={','.join(versions)} -b html {doc_dir} .",
