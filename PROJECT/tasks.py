@@ -22,9 +22,9 @@ def format(ctx):
         "black .",
         "isort .",
         f"clang-format -i {' '.join(glob.glob('include/PROJECT/*.h'))}",
-        f"clang-format -i {' '.join(glob.glob('src/PROJECT/*.cpp'))}",
-        f"clang-format -i {' '.join(glob.glob('src/pycxxPROJECT/*.cpp'))}",
-        f"clang-format -i {' '.join(glob.glob('tests/PROJECT/*.cpp'))}",
+        f"clang-format -i {' '.join(glob.glob('src/cxx/*.cpp'))}",
+        f"clang-format -i {' '.join(glob.glob('src/cxxPROJECT/*.cpp'))}",
+        f"clang-format -i {' '.join(glob.glob('tests/cxx/*.cpp'))}",
         f"clang-format -i {' '.join(glob.glob('tests/benchmarks/*.cpp'))}",
         "pandoc -s -o README.md README.rst",
     ):
@@ -81,7 +81,7 @@ def build_docs(ctx):
     with ctx.cd(build_dir):
         for cmd in (
             f"cmake -DVERSION={version} {doc_dir}",
-            "cmake --build build",
+             "cmake --build build",
             f"sphinx-apidoc -P -f -o {doc_dir / '_source'} {script_dir}/src/PROJECT",
             f"sphinx-build -Dversion={version} -Drelease={version} "
             f"-Aversion={version} -Aversions={','.join(versions)} -b html {doc_dir} .",

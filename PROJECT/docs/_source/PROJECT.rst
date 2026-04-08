@@ -1,13 +1,13 @@
-pyPROJECT package
+PROJECT package
 =================
 
 Submodules
 ----------
 
-pyPROJECT.main module
+PROJECT.main module
 --------------------------
 
-.. automodule:: pyPROJECT.main
+.. automodule:: PROJECT.main
    :members:
    :undoc-members:
    :show-inheritance:
@@ -17,7 +17,7 @@ pyPROJECT.main module
 Module contents
 ---------------
 
-.. automodule:: pyPROJECT
+.. automodule:: PROJECT
    :members:
    :undoc-members:
    :show-inheritance:

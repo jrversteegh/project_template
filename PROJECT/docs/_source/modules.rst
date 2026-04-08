@@ -1,7 +1,7 @@
-pyPROJECT
-=========
+PROJECT
+=======
 
 .. toctree::
    :maxdepth: 4
 
-   pyPROJECT
+   PROJECT

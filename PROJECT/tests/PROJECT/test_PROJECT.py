@@ -1,8 +1,8 @@
 import pytest
 
-from pyPROJECT import __author__ as author
-from pyPROJECT import __version__ as version
-from pyPROJECT.cxx import __version__ as cxxversion
+from PROJECT import __author__ as author
+from PROJECT import __version__ as version
+from PROJECT.cxx import __version__ as cxxversion
 
 
 def test_version():

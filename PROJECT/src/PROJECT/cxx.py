@@ -10,12 +10,12 @@ __contact__ = "EMAIL"
 import importlib
 import logging
 
-_log = logging.getLogger("pyPROJECT.cxx")
-_module_name = ".pycxxPROJECT"
+_log = logging.getLogger("PROJECT.cxx")
+_module_name = ".cxxPROJECT"
 
 try:
     _log.info(f"Importing {_module_name}")
-    pycxx = importlib.import_module(_module_name, package="pyPROJECT")
+    pycxx = importlib.import_module(_module_name, package="PROJECT")
 except ImportError:
     _log.error(f"Failed to import {_module_name}")
     raise ImportError(

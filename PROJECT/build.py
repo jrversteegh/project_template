@@ -14,7 +14,7 @@ import tomli
 from setuptools import Command, Extension
 from setuptools.command import build_ext
 
-module_name = "pycxxPROJECT"
+module_name = "cxxPROJECT"
 
 if "CXX" in os.environ:
     compiler = os.environ["CXX"]
@@ -24,9 +24,9 @@ else:
 architecture = platform.machine()
 on_windows = platform.system().startswith("Win")
 script_dir = Path(__file__).absolute().parent
-source_dir = script_dir / "src" / "PROJECT"
-py_source_dir = script_dir / "src" / "pyPROJECT"
-pycxx_source_dir = script_dir / "src" / "pycxxPROJECT"
+source_dir = script_dir / "src" / "cxx"
+py_source_dir = script_dir / "src" / "PROJECT"
+pycxx_source_dir = script_dir / "src" / "pycxx"
 build_dir = script_dir / "build"
 conan_dir = script_dir / "conan"
 conan_build_dir = build_dir / "conan"
@@ -75,6 +75,7 @@ def build_module(build_type, config="", march=""):
         if os.system(
             f"{cmake} -DCMAKE_BUILD_TYPE={build_type}"
             f" -DCMAKE_CXX_COMPILER={compiler}"
+             " -DCMAKE_POLICY_DEFAULT_CMP0167=NEW"
             f" -DARCH={architecture}"
             f" {conan_dir}"
         ):

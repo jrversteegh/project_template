@@ -36,9 +36,9 @@ endif()
 execute_process(COMMAND git show --no-patch --format=%h OUTPUT_VARIABLE GITREV)
 execute_process(COMMAND git show --no-patch --format=%ci --date=short OUTPUT_VARIABLE GITDATE)
 set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
-set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/PROJECT")
-set(BINDING_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/pycxxPROJECT")
-set(TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/PROJECT")
+set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/cxx")
+set(BINDING_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/cxxPROJECT")
+set(TESTS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/cxx")
 set(BENCHMARKS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tests/benchmarks")
 set(VERSION_H_IN ${INCLUDE_DIR}/PROJECT/version.h.in)
 set(VERSION_H ${INCLUDE_DIR}/PROJECT/version.h)
@@ -82,8 +82,8 @@ target_link_libraries(PROJECT PRIVATE
 )
 
 if(BUILD_PYTHON)
-  pybind11_add_module(pycxxPROJECT MODULE ${binding_sources})
-  target_link_libraries(pycxxPROJECT PRIVATE
+  pybind11_add_module(cxxPROJECT MODULE ${binding_sources})
+  target_link_libraries(cxxPROJECT PRIVATE
     fmt::fmt
     PROJECT_static
   )
