@@ -61,7 +61,7 @@ filterwarnings = "ignore::DeprecationWarning"
 asyncio_mode = "auto"
 
 [tool.coverage]
-run = { source = ["pyPROJECT"], branch = true, omit = [] }
+run = { source = ["PROJECT"], branch = true, omit = [] }
 html = { directory = "build/pytest_coverage" }
 xml = { output = "build/pytest_coverage.xml" }
 

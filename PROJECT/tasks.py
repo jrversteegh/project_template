@@ -67,7 +67,7 @@ def build(ctx):
     """Build"""
     for cmd in (
         "poetry build -vv",
-        f"conan create . --build=missing --profile={script_dir}/conan/PROJECT.profile",
+        f"conan create . --build=missing --profile={script_dir}/conan/PROJECT.profile -o boost/*:without_cobalt=True",
     ):
         ctx.run(cmd, echo=True)
 
@@ -82,7 +82,7 @@ def build_docs(ctx):
         for cmd in (
             f"cmake -DVERSION={version} {doc_dir}",
              "cmake --build build",
-            f"sphinx-apidoc -P -f -o {doc_dir / '_source'} {script_dir}/src/PROJECT",
+            f"sphinx-apidoc -P -f -o {doc_dir / '_source'} {script_dir}/src/cxx",
             f"sphinx-build -Dversion={version} -Drelease={version} "
             f"-Aversion={version} -Aversions={','.join(versions)} -b html {doc_dir} .",
         ):

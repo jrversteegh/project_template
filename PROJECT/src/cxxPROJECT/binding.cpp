@@ -14,7 +14,7 @@ namespace py = pybind11;
 
 using namespace PROJECT;
 
-PYBIND11_MODULE(pycxxPROJECT, m) {
+PYBIND11_MODULE(cxxPROJECT, m) {
   m.doc() = "PROJECT C++ module";
   m.attr("__version__") = STRINGIFY(VERSION);
   m.attr("git_revision") = STRINGIFY(GITREV);

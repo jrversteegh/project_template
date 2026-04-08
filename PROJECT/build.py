@@ -82,9 +82,9 @@ def build_module(build_type, config="", march=""):
             raise Exception("Failed to configure conan")
 
     with dir_context(build_dir):
-        # CMAKE flag required by bzip2. Remove when no longer necessary.
+        # CMAKE flag required by bzip2. Remove when no longer necessary. Also don't build boost::cobalt as it fails at the moment
         if os.system(
-            f"CMAKE_POLICY_VERSION_MINIMUM=3.5 conan install -of conan --profile={script_dir}/conan/PROJECT.profile --build=missing {script_dir}/conanfile.txt"
+            f"CMAKE_POLICY_VERSION_MINIMUM=3.5 conan install -of conan --profile={script_dir}/conan/PROJECT.profile --build=missing {script_dir}/conanfile.txt -o boost/*:without_cobalt=True"
         ):
             raise Exception("Failed to run conan")
         if os.system(

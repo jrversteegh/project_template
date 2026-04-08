@@ -74,7 +74,7 @@ endif()
 add_library(PROJECT_static STATIC $<TARGET_OBJECTS:PROJECTlib>)
 set_target_properties(PROJECT_static PROPERTIES OUTPUT_NAME PROJECT)
 
-add_executable(PROJECT ${lib_sources} src/PROJECT/app/main.cpp)
+add_executable(PROJECT ${lib_sources} src/cxx/app/main.cpp)
 target_link_libraries(PROJECT PRIVATE
   fmt::fmt
   Boost::program_options

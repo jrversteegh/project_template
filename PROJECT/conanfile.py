@@ -39,13 +39,14 @@ class PROJECTConan(ConanFile):
         "pyproject.toml",
         "CMakeLists.txt",
         "cmake/*",
-        "src/PROJECT/*",
+        "src/cxx/*",
         "include/PROJECT/*",
         "conanfile.txt",
     )
 
     def requirements(self):
         self.requires("fmt/11.2.0")
+        self.requires("boost/1.90.0")
 
     def validate(self):
         compiler = self.settings.compiler
@@ -65,6 +66,7 @@ class PROJECTConan(ConanFile):
         tc.variables["CMAKE_BUILD_TYPE"] = self.settings.build_type
         if self.settings.os == "Windows":
             tc.variables["CMAKE_POLICY_DEFAULT_CMP0091"] = "NEW"
+        tc.variables["CMAKE_POLICY_DEFAULT_CMP0167"] = "NEW"
         tc.generate()
 
     def package(self):
