@@ -78,7 +78,7 @@ def build(ctx):
     """Build"""
     for cmd in (
         "poetry build -vv",
-        f"CONAN_HOME={conan_dir} conan create . --build=missing -o boost/*:without_cobalt=True",
+        f"conan create . --build=missing --profile={conan_dir}/profiles/default -o boost/*:without_cobalt=True",
     ):
         ctx.run(cmd, echo=True)
 
