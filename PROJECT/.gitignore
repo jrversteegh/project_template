@@ -7,10 +7,17 @@
 /CMakeSettings.json
 /CMakeUserPresets.json
 /src/pyPROJECT/*.so
-/conan/PROJECT.profile
 /tests/output/*
 /tests/logs/*
-/conan/*
+/conan/.conan.db
+/conan/extensions/
+/conan/global.conf
+/conan/migrations/
+/conan/p/
+/conan/profiles/default
+/conan/remotes.json
+/conan/settings.yml
+/conan/version.txt
 
 __pycache__
 *.pyc
