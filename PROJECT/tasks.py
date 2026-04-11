@@ -9,6 +9,7 @@ from invoke import task
 # Run from project root directory
 script_dir = Path(__file__).absolute().parent
 os.chdir(script_dir)
+conan_dir = script_dir / "conan"
 
 import build
 
@@ -77,7 +78,7 @@ def build(ctx):
     """Build"""
     for cmd in (
         "poetry build -vv",
-        f"conan create . --build=missing --profile={script_dir}/conan/PROJECT.profile -o boost/*:without_cobalt=True",
+        f"CONAN_HOME={conan_dir} conan create . --build=missing -o boost/*:without_cobalt=True",
     ):
         ctx.run(cmd, echo=True)
 

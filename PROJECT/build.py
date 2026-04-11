@@ -28,11 +28,10 @@ source_dir = script_dir / "src" / "cxx"
 py_source_dir = script_dir / "src" / "PROJECT"
 pycxx_source_dir = script_dir / "src" / "pycxx"
 build_dir = script_dir / "build"
-conan_dir = script_dir / "conan"
-conan_build_dir = build_dir / "conan"
 python = sys.executable
 python_dir = Path(os.path.dirname(python))
 cmake = python_dir / "cmake"
+conan_dir = script_dir / "conan"
 
 
 def get_project_version_and_date():
@@ -71,20 +70,15 @@ def build_module(build_type, config="", march=""):
     config_flag = f"--config {build_type}" if on_windows else ""
     march_define = f"-DBUILD_MARCH={march}" if march else ""
     version, date = get_project_version_and_date()
-    with dir_context(conan_build_dir):
-        if os.system(
-            f"{cmake} -DCMAKE_BUILD_TYPE={build_type}"
-            f" -DCMAKE_CXX_COMPILER={compiler}"
-            " -DCMAKE_POLICY_DEFAULT_CMP0167=NEW"
-            f" -DARCH={architecture}"
-            f" {conan_dir}"
-        ):
-            raise Exception("Failed to configure conan")
+    if os.system(
+        f"CONAN_HOME={conan_dir} conan profile detect --force"
+    ):
+        raise Exception("Failed to configure conan")
 
     with dir_context(build_dir):
         # CMAKE flag required by bzip2. Remove when no longer necessary. Also don't build boost::cobalt as it fails at the moment
         if os.system(
-            f"CMAKE_POLICY_VERSION_MINIMUM=3.5 conan install -of conan --profile={script_dir}/conan/PROJECT.profile --build=missing {script_dir}/conanfile.txt -o boost/*:without_cobalt=True"
+            f"CONAN_HOME={conan_dir} CMAKE_POLICY_VERSION_MINIMUM=3.5 conan install -of conan --build=missing {script_dir}/conanfile.txt -o boost/*:without_cobalt=True"
         ):
             raise Exception("Failed to run conan")
         if os.system(

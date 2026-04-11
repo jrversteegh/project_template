@@ -10,6 +10,7 @@
 /conan/PROJECT.profile
 /tests/output/*
 /tests/logs/*
+/conan/*
 
 __pycache__
 *.pyc
